@@ -1,0 +1,64 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "license": "ISC",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start",
+    "lint": "npm run eslint && npm run typecheck",
+    "typecheck": "tsc -p .",
+    "eslint": "eslint '**/*.{ts,tsx}'",
+    "ci": "npm run install --immutable --immutable-cache --check-cache",
+    "prettier": "prettier '**/{*.{js?(on),ts?(x),md,scss},.*.js?(on)}' --write --list-different",
+    "prettier:check": "npm run -s prettier --write=false"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "next/core-web-vitals",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "parserOptions": {
+      "project": "tsconfig.eslint.json"
+    },
+    "rules": {
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@next/next/no-img-element": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-console": "off"
+    }
+  },
+  "dependencies": {
+    "@material-tailwind/react": "^1.2.4",
+    "@reduxjs/toolkit": "^1.9.0",
+    "@types/express": "^4.17.14",
+    "axios": "^1.1.3",
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
+    "@redux-devtools/core": "^3.13.1",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.41",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "8.11.0",
+    "eslint-config-next": "12.1.0",
+    "postcss": "^8.4.5",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.1",
+    "tailwindcss": "^3.2.4",
+    "typescript": "4.6.2"
+  }
+}
