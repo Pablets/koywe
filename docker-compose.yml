@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./mongo_volume/data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - dev
+  auth-backend:
+    build:
+      context: ./auth-backend
+    restart: always
+    depends_on:
+      - 'mongo'
+    ports:
+      - '3001:3001'
+    networks:
+      - dev
+    environment:
+      - JWT_KEY=asdf
+      - MONGO_URI=mongodb://root:example@mongo:27017/mydb?authSource=admin
+
+  client:
+    build:
+      context: ./client
+    volumes:
+      - staticbuild:/app/out
+    networks:
+      - dev
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - staticbuild:/app/public
+    ports:
+      - '8080:80'
+    networks:
+      - dev
+
+networks:
+  dev:
+    driver: bridge
+
+volumes:
+  staticbuild:
