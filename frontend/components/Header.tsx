@@ -2,15 +2,17 @@ import { MenuItem, Typography } from '@material-tailwind/react'
 import Link from 'next/link'
 import { AuthContext, AuthContextProps } from 'pages/_app'
 import { useContext } from 'react'
+import { coinOptionType } from 'redux/slices/filterSlice'
 import MenuComponent from './Menu'
+import MenuDropdown from './MenuDropdown'
 
 const Header = () => {
-    const { currentUser } = useContext(AuthContext) as AuthContextProps
+    const { logged } = useContext(AuthContext) as AuthContextProps
 
     const links = [
-        !currentUser && { label: 'Sign Up', href: '/auth/signup' },
-        !currentUser && { label: 'Sign In', href: '/auth/signin' },
-        currentUser && { label: 'Sign Out', href: '/auth/signout' },
+        logged === false && { label: 'Sign Up', href: '/auth/signup' },
+        logged === false && { label: 'Sign In', href: '/auth/signin' },
+        logged === true && { label: 'Sign Out', href: '/auth/signout' },
         { label: 'Coin List', href: '/crypto/coinlist' },
         { label: 'Calculator', href: '/crypto/calculator' },
         { label: 'Order Book', href: '/crypto/orderBook' },
@@ -24,24 +26,7 @@ const Header = () => {
                         <a>Koywe challenge</a>
                     </Link>
                 </div>
-                <MenuComponent menuTitle={'Menu'}>
-                    {links?.length &&
-                        links.map(link => {
-                            if (!link || typeof link === 'boolean' || typeof link === 'undefined') return null
-                            const label = link.label
-                            const href = link.href
-
-                            return (
-                                <MenuItem key={href}>
-                                    <Link href={href}>
-                                        <a className="m-3 inline-block">
-                                            <Typography variant="paragraph">{label}</Typography>
-                                        </a>
-                                    </Link>
-                                </MenuItem>
-                            )
-                        })}
-                </MenuComponent>
+                <MenuDropdown options={links} />
             </nav>
         </div>
     )

@@ -1,37 +1,43 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import '/styles/globals.css'
 import { ThemeProvider } from '@material-tailwind/react'
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import { store } from 'redux/store'
 import { Layout } from 'layout/Layout'
+import { useCookie } from '@hooks/cookie'
 
-type CurrentUsertype = {
+type UserPayload = {
+    id: string
     email: string
-    password: string
-}
+} | null
 export interface AuthContextProps {
-    currentUser: CurrentUsertype | null
+    currentUser: UserPayload
     logged: boolean
-    setLoginCb: (value: CurrentUsertype | null) => void
+    setLoginCb: (value: UserPayload) => void
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-    const [currentUser, setCurrentUser] = useState<CurrentUsertype | null>(null)
+    const { callRoute, hasUser } = useCookie()
 
-    const [logged, setLogged] = useState(false)
+    useEffect(() => {
+        callRoute('api/users/currentuser')
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    const setLoginCb = (value: CurrentUsertype | null) => {
-        setLogged(Boolean(value?.email))
+    const [currentUser, setCurrentUser] = useState<UserPayload | null>(null)
+
+    const setLoginCb = (value: UserPayload) => {
+        callRoute('api/users/currentuser')
         setCurrentUser(value)
     }
 
     return (
         <Provider store={store}>
             <ThemeProvider>
-                <AuthContext.Provider value={{ currentUser, logged, setLoginCb }}>
+                <AuthContext.Provider value={{ currentUser, logged: hasUser, setLoginCb }}>
                     <Layout>
                         <Component {...pageProps} />
                     </Layout>

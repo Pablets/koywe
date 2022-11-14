@@ -13,8 +13,8 @@ const Signin = () => {
         url: 'http://localhost:3001/api/users/signin',
         method: 'post',
         body: { email, password },
-        onSuccess: () => {
-            setLoginCb({ email, password })
+        onSuccess: data => {
+            setLoginCb({ ...data })
             Router.push('/')
         },
     })
