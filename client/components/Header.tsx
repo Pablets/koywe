@@ -3,7 +3,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import { AuthContext, AuthContextProps } from 'pages/_app'
 import { useContext } from 'react'
-import { currentUser } from '../../auth-backend/src/middlewares/current-user'
+import { currentUser } from '../../backend/src/middlewares/current-user'
 import MenuComponent from './Menu'
 
 interface currentUser {
@@ -20,11 +20,12 @@ const Header = () => {
         currentUser && { label: 'Sign Out', href: '/auth/signout' },
         { label: 'Coin List', href: '/crypto/coinlist' },
         { label: 'Calculator', href: '/crypto/calculator' },
+        { label: 'Order Book', href: '/crypto/orderBook' },
     ]
 
     return (
         <div className="flex w-full justify-center bg-light-blue-100">
-            <nav className="flex w-full flex-row items-center justify-between px-4 py-4 sm:max-w-sm sm:px-0 md:max-w-md lg:max-w-screen-lg">
+            <nav className="mx-auto flex w-full flex-row items-center justify-between p-6 py-4 lg:max-w-screen-lg">
                 <div>
                     <Link href="/">
                         <a>Koywe challenge</a>

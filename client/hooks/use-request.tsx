@@ -10,11 +10,13 @@ interface useRequestProps {
 }
 
 const useRequest = ({ url, method = 'get', body, onSuccess, config }: useRequestProps) => {
-    const [errors, setErrors] = useState<{ message: string }[]>()
+    const [error, setError] = useState<any>()
+    const [loading, setLoading] = useState<boolean>(false)
 
     const doRequest = async () => {
         try {
-            setErrors(undefined)
+            setLoading(true)
+            setError(undefined)
 
             const defaultConf: AxiosRequestConfig = {
                 data: body,
@@ -24,16 +26,18 @@ const useRequest = ({ url, method = 'get', body, onSuccess, config }: useRequest
             const response = await axios(url, { ...defaultConf, ...config })
 
             if (onSuccess) {
+                setLoading(false)
                 onSuccess(response.data)
             }
 
             return response.data
         } catch (err) {
-            console.log(err)
+            setLoading(false)
+            setError(err)
         }
     }
 
-    return { doRequest, errors }
+    return { doRequest, error, loading }
 }
 
 export default useRequest

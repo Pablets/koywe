@@ -19,7 +19,6 @@ const Signup = () => {
         onSuccess: () => {
             setLoginCb({ email, password })
             Router.push('/')
-            console.log('LOGGED_UP')
         },
     })
 

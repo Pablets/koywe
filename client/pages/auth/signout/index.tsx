@@ -12,7 +12,6 @@ const Signout = () => {
         onSuccess: () => {
             Router.push('/')
             setLoginCb(null)
-            console.log('SIGNED_OUT')
         },
     })
 

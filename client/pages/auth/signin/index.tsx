@@ -16,7 +16,6 @@ const Signin = () => {
         onSuccess: () => {
             setLoginCb({ email, password })
             Router.push('/')
-            console.log('SIGNED_IN')
         },
     })
 

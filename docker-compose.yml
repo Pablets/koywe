@@ -13,9 +13,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
       - dev
-  auth-backend:
+  backend:
     build:
-      context: ./auth-backend
+      context: ./backend
     restart: always
     depends_on:
       - 'mongo'

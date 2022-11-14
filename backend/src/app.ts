@@ -12,6 +12,7 @@ import { CorsOptions } from 'cors'
 import cors from 'cors'
 import { NotFoundError } from './errors/not-found-error'
 import { errorHandler } from './middlewares/error-handler'
+import { orderBookRouter } from './routes/order-book'
 
 // CORS
 const corsOptions: CorsOptions = {
@@ -40,6 +41,7 @@ app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signoutRouter)
 app.use(signupRouter)
+app.use(orderBookRouter)
 
 //eslint-disable-next-line
 app.all('*', async (_req: Request, _res: Response) => {

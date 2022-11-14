@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { coinOptionType } from 'redux/slices/filterSlice'
+import { coinOptionType, renderedColumn } from 'redux/slices/filterSlice'
 import { IColumns, IFlatCoin } from '../models/coinsModel'
 
 // function getDefaultSorting(defaultTableData: any, columns: any) {
@@ -22,7 +22,10 @@ import { IColumns, IFlatCoin } from '../models/coinsModel'
 //     return sorted
 // }
 
-export const useSortableTable = (data: IFlatCoin[], { filteredCoins }: { filteredCoins: coinOptionType }) => {
+export const useSortableTable = (
+    data: IFlatCoin[],
+    { filteredCoins, columns }: { filteredCoins: coinOptionType; columns?: renderedColumn }
+) => {
     const [tableData, setTableData] = useState<IFlatCoin[]>(data)
 
     const handleSorting = (sortField: IColumns, sortOrder: 'asc' | 'desc') => {

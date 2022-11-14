@@ -1,17 +1,26 @@
 import { Input, Typography } from '@material-tailwind/react'
-import { Console } from 'console'
 import React, { ChangeEvent, FC, useEffect, useMemo, useState } from 'react'
-import { coinOptionType } from 'redux/slices/filterSlice'
+import { renderedColumn } from 'redux/slices/filterSlice'
 
-export interface DropDownMenuProps {
-    onSelect: (value: coinOptionType) => void
-    defaultOption?: coinOptionType
-    options: coinOptionType
+export interface ColumnsOptionsProps {
+    onSelect: (value: renderedColumn) => void
+    defaultOption?: renderedColumn
+    options: renderedColumn
     label: string
+    lockedColumns?: string[]
 }
 
-const DropDownMenu: FC<DropDownMenuProps> = ({ onSelect, options, label }): JSX.Element => {
-    const labels: string[] = useMemo(() => Object.keys(options).map(label => label), [options])
+const ColumnsOptions: FC<ColumnsOptionsProps> = ({
+    onSelect,
+    options,
+    label,
+    lockedColumns = ['name'],
+}): JSX.Element => {
+    const labels: string[] = useMemo(
+        () => Object.keys(options).filter(label => !lockedColumns.includes(label)),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        []
+    )
 
     const [openDropdown, setOpenDropdown] = useState<boolean>(false)
     const [labelsToDisplay, setLabelsToDisplay] = useState<string[]>([])
@@ -19,18 +28,28 @@ const DropDownMenu: FC<DropDownMenuProps> = ({ onSelect, options, label }): JSX.
     const [selectAll, setSelectAll] = useState<boolean>(false)
 
     const onChangeHandler = (value: string) => {
-        onSelect({ ...options, [value]: !options[value] })
+        const tempValue = { ...options[value] }
+        tempValue.display = !tempValue.display
+
+        onSelect({ ...options, [value]: { ...tempValue } })
     }
 
     const selectDeselectAll = () => {
-        const obj: coinOptionType = {}
-        Object.keys(options).map(option => (obj[option] = selectAll))
-        onSelect(obj)
+        const obj: renderedColumn = {}
+        Object.keys(options)
+            .filter(label => !lockedColumns.includes(label))
+            .map(option => {
+                obj[option] = { ...options[option] }
+                obj[option].display = selectAll
+                return option
+            })
+        onSelect({ ...options, ...obj })
         setSelectAll(!selectAll)
     }
 
     const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
         const filteredLabels = labels.filter(label => label.toLowerCase().includes(e.target.value.toLowerCase()))
+
         setLabelsToDisplay(filteredLabels)
         setInputValue(e.target.value)
     }
@@ -52,6 +71,7 @@ const DropDownMenu: FC<DropDownMenuProps> = ({ onSelect, options, label }): JSX.
                 <Input
                     label={label}
                     variant="outlined"
+                    readOnly
                     color="gray"
                     onChange={handleFilterChange}
                     onClick={() => {
@@ -108,16 +128,16 @@ const DropDownMenu: FC<DropDownMenuProps> = ({ onSelect, options, label }): JSX.
                         className={`${!openDropdown ? 'hidden' : ''} text-sm text-gray-700 dark:text-gray-200`}
                         aria-labelledby="dropdownDefault"
                     >
-                        {labelsToDisplay.map(optionLabel => (
-                            <li key={optionLabel}>
+                        {labelsToDisplay.map((label, idx) => (
+                            <li key={idx * Math.random()}>
                                 <a
                                     href="#"
                                     className={`${
-                                        options[optionLabel] ? 'bg-white' : 'bg-gray-300 line-through'
+                                        options[label].display ? 'bg-white' : 'bg-gray-300 line-through'
                                     } block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white`}
-                                    onClick={() => onChangeHandler(optionLabel)}
+                                    onClick={() => onChangeHandler(label)}
                                 >
-                                    {optionLabel}
+                                    {options[label].label}
                                 </a>
                             </li>
                         ))}
@@ -128,4 +148,4 @@ const DropDownMenu: FC<DropDownMenuProps> = ({ onSelect, options, label }): JSX.
     )
 }
 
-export default DropDownMenu
+export default ColumnsOptions

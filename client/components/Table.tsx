@@ -1,20 +1,20 @@
 import { IFlatCoin } from '../models/coinsModel'
-import { renderedColumns } from '../pages/crypto/coinlist/index'
 import { FC } from 'react'
 import { useSortableTable } from '@hooks/useSortableTable'
 import TableHead from './TableHead'
 import TableBody from './TableBody'
 import { coinOptionType } from 'redux/slices/filterSlice'
+import { renderedColumn } from '../redux/slices/filterSlice'
 
 export interface TableProps {
     caption: string
     data: IFlatCoin[]
-    columns: renderedColumns[]
+    columns: renderedColumn
     filteredCoins: coinOptionType
 }
 
 const Table: FC<TableProps> = ({ data, columns, filteredCoins }) => {
-    const { tableData, handleSorting } = useSortableTable(data, { filteredCoins })
+    const { tableData, handleSorting } = useSortableTable(data, { filteredCoins, columns })
 
     return (
         <div className="block w-full overflow-hidden rounded-lg" style={{ maxHeight: '60vh' }}>

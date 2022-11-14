@@ -25,7 +25,7 @@
       "@typescript-eslint"
     ],
     "parserOptions": {
-      "project": "tsconfig.eslint.json"
+      "project": "tsconfig.json"
     },
     "rules": {
       "@typescript-eslint/no-non-null-assertion": "off",
