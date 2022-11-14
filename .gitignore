@@ -3,6 +3,7 @@
 # dependencies
 **/node_modules
 mongo_volume
+staticbuild
 .pnp
 .pnp.js
 

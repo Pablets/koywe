@@ -15,7 +15,7 @@ declare global {
 }
 
 export const currentUser = (req: Request, res: Response, next: NextFunction) => {
-    const jwtCookie = req?.session?.jwt || req.headers?.cookie?.split('=')[1]
+    const jwtCookie = /* req?.session?.jwt ||  */req.headers?.cookie?.split('=')[1]
 
     if (!jwtCookie) {
         return next()

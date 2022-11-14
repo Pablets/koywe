@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    loader: 'default',
     domains: ['assets.coingecko.com'],
   },
 }

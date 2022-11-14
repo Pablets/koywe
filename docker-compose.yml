@@ -29,9 +29,9 @@ services:
 
   client:
     build:
-      context: ./client
+      context: ./frontend
     volumes:
-      - staticbuild:/app/out
+      - ./staticbuild:/app/out
     networks:
       - dev
 
@@ -39,7 +39,7 @@ services:
     build:
       context: ./nginx
     volumes:
-      - staticbuild:/app/public
+      - ./staticbuild:/app/public
     ports:
       - '8080:80'
     networks:
