@@ -37,7 +37,7 @@ const MenuDropdown: FC<DropDownMenuProps> = ({ options }): JSX.Element => {
                 </Button>
                 <div
                     id="dropdown"
-                    className={`right-0 z-50 h-auto max-h-fit divide-y divide-gray-100 overflow-auto rounded bg-gray-300`}
+                    className={`right-0 z-50 h-auto max-h-max max-w-max divide-y divide-gray-100 overflow-auto rounded bg-gray-300`}
                     style={{
                         position: 'absolute',
                         inset: '0px auto auto 0px',
@@ -45,7 +45,6 @@ const MenuDropdown: FC<DropDownMenuProps> = ({ options }): JSX.Element => {
                         transition: 'all .3s',
                         height: openDropdown ? 'auto' : '0px',
                         transform: 'translateY(50px)',
-                        left: '-130%',
                     }}
                 >
                     <ul
@@ -62,6 +61,7 @@ const MenuDropdown: FC<DropDownMenuProps> = ({ options }): JSX.Element => {
                                     <li key={label.length * Math.random()}>
                                         <Link href={href}>
                                             <a
+                                                onClick={() => setOpenDropdown(false)}
                                                 href="#"
                                                 className={`block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white`}
                                             >
