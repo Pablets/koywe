@@ -17,6 +17,7 @@ const Signout = () => {
 
     useEffect(() => {
         doRequest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return <div>Signing you out...</div>

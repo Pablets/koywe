@@ -5,7 +5,7 @@ export interface indexProps {
     children: ReactNode
 }
 
-const OrderBook: FC<indexProps> = ({ children }) => {
+const OrderBook: FC<indexProps> = () => {
     const [data, setData] = useState()
     const { doRequest, error, loading } = useRequest({
         url: 'http://localhost:3001/api/crypto/best-exchange-usd?amount=10000&crypto=ETH',
@@ -16,6 +16,7 @@ const OrderBook: FC<indexProps> = ({ children }) => {
 
     useEffect(() => {
         doRequest()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (loading) return <div>loading...</div>

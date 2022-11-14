@@ -1,4 +1,3 @@
-import { Console } from 'console'
 import Router from 'next/router'
 import { AuthContext, AuthContextProps } from 'pages/_app'
 import { useContext, useState } from 'react'

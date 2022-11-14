@@ -27,23 +27,25 @@ services:
       - JWT_KEY=asdf
       - MONGO_URI=mongodb://root:example@mongo:27017/mydb?authSource=admin
 
-  client:
+  frontend:
     build:
       context: ./frontend
     volumes:
-      - ./staticbuild:/app/out
+      - staticbuild:/app/out
+    ports:
+      - '3000:3000'
     networks:
       - dev
 
-  nginx:
-    build:
-      context: ./nginx
-    volumes:
-      - ./staticbuild:/app/public
-    ports:
-      - '8080:80'
-    networks:
-      - dev
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #   volumes:
+  #     - staticbuild:/app/public
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     - dev
 
 networks:
   dev:

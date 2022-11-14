@@ -1,15 +1,8 @@
 import { MenuItem, Typography } from '@material-tailwind/react'
-import axios from 'axios'
 import Link from 'next/link'
 import { AuthContext, AuthContextProps } from 'pages/_app'
 import { useContext } from 'react'
-import { currentUser } from '../../backend/src/middlewares/current-user'
 import MenuComponent from './Menu'
-
-interface currentUser {
-    email: string
-    name: string
-}
 
 const Header = () => {
     const { currentUser } = useContext(AuthContext) as AuthContextProps

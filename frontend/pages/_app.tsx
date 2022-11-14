@@ -2,7 +2,6 @@ import { createContext, useState } from 'react'
 import '/styles/globals.css'
 import { ThemeProvider } from '@material-tailwind/react'
 import type { AppProps } from 'next/app'
-import Header from '@components/Header'
 import { Provider } from 'react-redux'
 import { store } from 'redux/store'
 import { Layout } from 'layout/Layout'
@@ -18,10 +17,6 @@ export interface AuthContextProps {
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
-
-if (process.env.NODE_ENV === 'development') {
-    require('../mocks')
-}
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     const [currentUser, setCurrentUser] = useState<CurrentUsertype | null>(null)

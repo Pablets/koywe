@@ -10,7 +10,6 @@
     "lint": "npm run eslint && npm run typecheck",
     "typecheck": "tsc -p .",
     "eslint": "eslint '**/*.{ts,tsx}'",
-    "ci": "npm run install --immutable --immutable-cache --check-cache",
     "prettier": "prettier '**/{*.{js?(on),ts?(x),md,scss},.*.js?(on)}' --write --list-different",
     "prettier:check": "npm run -s prettier --write=false"
   },

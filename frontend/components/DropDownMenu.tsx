@@ -1,5 +1,4 @@
 import { Input, Typography } from '@material-tailwind/react'
-import { Console } from 'console'
 import React, { ChangeEvent, FC, useEffect, useMemo, useState } from 'react'
 import { coinOptionType } from 'redux/slices/filterSlice'
 
