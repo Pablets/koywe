@@ -43,8 +43,25 @@ mongodb-memory-server: implementación de una base de datos mongo en memoria par
 
 #### 5. Algún supuesto y/o consideraciones que debamos tener presente cuando implementaste el FrontEnd?
 Todo el flujo de autenticación es solo un extra y si bien funciona, hay ciertas licencias de seguridad que me tomé para agilizar la implementación como el manejo de web token en el frontend.
+
+Con respecto a la tabla que es el componente con más interaccion por parte del usuario tiene las siguientes features:
+- mostrar/ocultar columnas
+- searchbox para buscar filtros rápidamente
+- cambio dinámico de currency
+- persistencia en memoria de filtros con redux.
+- filtro por crypto
+- full responsive. (Aclaro esto porque en la consigna decía que no se mostrara en mobiles, yo me tomé la licencia de dejarla pero que sea totalmente funcional y que cumpla con estándares de usabilidad.)
+- Se asume que el frontend tiene un package-lock.json para que lo pueda buildear el dockerfile.
+
 #### 6. Algún supuesto y/o consideraciones que debamos tener presente cuando implementaste el BackEnd?
 Ciertas partes del flujo no están terminadas aunque creo que para fines de demostración la aplicación cumple con lo requerido.
+
+Features:
+- Flujo de login: SignIn, SingUp, SignOut con persistencia de datos en mongo.
+- test con supertest y jest.
+- El backend necesita dos variables de entornos para poder correr JWT_KEY y MONGO_URI sino el entry point tira una excepción. Vienen por defecto configuradas en el compose.
+- Se asume que el backend tiene un package-lock.json para que lo pueda buildear el dockerfile.
+
 
 #### 7. Nos encantaría ver que sugerencia nos puedes hacer para mejorar este desafio.
 El punto de comparación de order books, es un poco complejo debido a que la documentación de las apis no está clara en algunas partes. Me sirivieron mucho todos los links con documentación, fue un buen detalle.
