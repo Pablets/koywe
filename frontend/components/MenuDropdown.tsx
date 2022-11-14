@@ -1,6 +1,6 @@
-import { Button, Input, Typography } from '@material-tailwind/react'
+import { Button } from '@material-tailwind/react'
 import Link from 'next/link'
-import React, { ChangeEvent, FC, useEffect, useMemo, useState } from 'react'
+import React, { FC, useState } from 'react'
 
 type linkOptionsType = (
     | false
@@ -45,7 +45,7 @@ const MenuDropdown: FC<DropDownMenuProps> = ({ options }): JSX.Element => {
                         transition: 'all .3s',
                         height: openDropdown ? 'auto' : '0px',
                         transform: 'translateY(50px)',
-                        left: '-130%'
+                        left: '-130%',
                     }}
                 >
                     <ul

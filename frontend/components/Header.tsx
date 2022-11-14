@@ -1,9 +1,6 @@
-import { MenuItem, Typography } from '@material-tailwind/react'
 import Link from 'next/link'
 import { AuthContext, AuthContextProps } from 'pages/_app'
 import { useContext } from 'react'
-import { coinOptionType } from 'redux/slices/filterSlice'
-import MenuComponent from './Menu'
 import MenuDropdown from './MenuDropdown'
 
 const Header = () => {
